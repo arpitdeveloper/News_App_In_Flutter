@@ -1,11 +1,13 @@
 // ignore_for_file: unnecessary_new, avoid_print, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:rk_news/bargraph.dart';
 import 'package:rk_news/bottom_tab/page1.dart';
 import 'package:rk_news/bottom_tab/page2.dart';
 import 'package:rk_news/bottom_tab/page3.dart';
 // import 'package:rk_news/bottom_tab/page4.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:rk_news/components/Bias.dart';
 import 'package:rk_news/view/login_screen.dart';
 // ignore: depend_on_referenced_packages
 
@@ -46,7 +48,8 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
     Page1(),
     Page2(),
     Page3(),
-    const LoginScreen()
+    // Bargraph()
+    Bias()
   ];
 
   void _onItemTapped(int index) {
