@@ -117,9 +117,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                         height: 25.0,
                         child: ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              a = 'center';
-                            });
+                            setState(() {});
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFA1A1A1),
