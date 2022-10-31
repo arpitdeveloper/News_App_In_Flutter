@@ -67,6 +67,7 @@ flutter:
   - family: PlayfairDisplay
     fonts:
       - asset: fonts\PlayfairDisplay-Bold.ttf
+      - asset: fonts\PlayfairDisplay-Medium.ttf
 
   assets:
     
