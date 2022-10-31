@@ -8,6 +8,8 @@ import 'package:rk_news/bottom_tab/page3.dart';
 // import 'package:rk_news/bottom_tab/page4.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rk_news/components/Bias.dart';
+import 'package:rk_news/components/image.dart';
+import 'package:rk_news/components/profile_change.dart';
 import 'package:rk_news/view/login_screen.dart';
 // ignore: depend_on_referenced_packages
 
@@ -47,9 +49,11 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     Page1(),
     Page2(),
-    Page3(),
+    // Page3(),
+    const Imagee(),
+    Profile_change()
     // Bargraph()
-    Bias()
+    // Bias()
   ];
 
   void _onItemTapped(int index) {
