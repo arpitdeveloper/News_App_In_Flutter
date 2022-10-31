@@ -1,6 +1,12 @@
 // ignore_for_file: unnecessary_new, avoid_print, library_private_types_in_public_api, unnecessary_const, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'dart:io';
+
+import 'package:flutter/services.dart';
+// ignore: depend_on_referenced_packages
+import 'package:image_picker/image_picker.dart';
+import 'package:rk_news/bottom_tab/page3.dart';
 
 void main() => runApp(Profile_change());
 
@@ -24,6 +30,37 @@ class MyNavigationBar extends StatefulWidget {
 }
 
 class _MyNavigationBarState extends State<MyNavigationBar> {
+  File? image;
+
+  Future pickImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+
+      setState(() => this.image = imageTemp);
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    } on PlatformException {
+      // print('Failed to pick image: $e');
+    }
+  }
+
+  Future pickImageC() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+
+      if (image == null) return;
+
+      // final imageTemp = File(image.path);
+
+      setState(() => this.image = File(image.path));
+      // ignore: empty_catches
+    } on PlatformException {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +80,12 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                   color: Color.fromARGB(255, 204, 192, 192),
                   size: 18.0,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Page3()),
+                  );
+                },
               ),
             ),
             Container(
@@ -59,25 +101,33 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
             ),
           ],
         ),
-        Container(
-          height: 70, width: 70,
-          margin: const EdgeInsets.only(top: 20, left: 20),
-          // Border width
-          decoration:
-              const BoxDecoration(color: Colors.black, shape: BoxShape.circle),
-          child: ClipOval(
-            child: SizedBox.fromSize(
-              size: const Size.fromRadius(48), // Image radius
-              child: Image.asset(
-                'assets/images/user.png',
-                height: 80.0,
-                alignment: Alignment.center,
-              ),
+        Center(
+          child: Container(
+            margin: const EdgeInsets.only(top: 5, bottom: 12),
+            width: 80.0,
+            height: 80.0,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: ClipOval(
+              child: image != null
+                  ? Image.file(
+                      image!,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      'assets/images/user.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
             ),
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 30, top: 15),
+          margin: const EdgeInsets.only(top: 10),
           alignment: Alignment.center,
           child: const Text(
             'JOHN SMITH',
@@ -88,7 +138,7 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 30, top: 5),
+          margin: const EdgeInsets.only(top: 5),
           alignment: Alignment.center,
           child: const Text(
             'MEMBER SINCE 5 MAY 2022',
@@ -100,8 +150,10 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
         ),
         Container(
             height: 35,
-            margin: const EdgeInsets.only(top: 10.0, left: 30.0),
-            padding: const EdgeInsets.fromLTRB(125, 0, 125, 0),
+            margin: const EdgeInsets.only(
+              top: 10.0,
+            ),
+            padding: const EdgeInsets.fromLTRB(135, 0, 135, 0),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 side: const BorderSide(color: Colors.black),
@@ -116,7 +168,249 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                     fontWeight: FontWeight.w500,
                     color: Colors.black),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => Container(
+                      height: MediaQuery.of(context).size.height * 0.85,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25.0),
+                          topRight: Radius.circular(25.0),
+                        ),
+                      ),
+                      child: ListView(children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Container(
+                              margin: const EdgeInsets.only(top: 25, left: 20),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.network(
+                                      'https://icons.veryicon.com/png/o/miscellaneous/student/false.png',
+                                      width: 16.0,
+                                      height: 16.0),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(top: 25, left: 120),
+                              alignment: Alignment.topCenter,
+                              child: const Text(
+                                'Edit Profile',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: "PlayfairDisplay"),
+                              ),
+                            ),
+                            Container(
+                                margin:
+                                    const EdgeInsets.only(top: 25, left: 80),
+                                alignment: Alignment.topRight,
+                                child: SizedBox(
+                                    width: 60, // <-- Your width
+                                    height: 25, // <-- Your height
+                                    child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        side: const BorderSide(
+                                            color: Colors.black),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0)),
+                                        backgroundColor:
+                                            Colors.white, // Background color
+                                      ),
+                                      child: const Text(
+                                        'SAVE',
+                                        style: TextStyle(
+                                            fontSize: 7,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black),
+                                      ),
+                                      onPressed: () {},
+                                    ))),
+                          ],
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                            top: 10,
+                          ),
+                          width: 100.0,
+                          height: 1.0,
+                          color: Colors.black,
+                        ),
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 40, bottom: 12),
+                            width: 70.0,
+                            height: 70.0,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: ClipOval(
+                              child: image != null
+                                  ? Image.file(
+                                      image!,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/user.png',
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                            child: const Text(
+                              'CHANGE PROFILE PHOTO',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            onTap: () {
+                              pickImage();
+                              // showModalBottomSheet(
+                              //   context: context,
+                              //   isScrollControlled: true,
+                              //   backgroundColor: Colors.transparent,
+                              //   builder: (context) => Container(
+                              //       height: MediaQuery.of(context).size.height *
+                              //           0.35,
+                              //       decoration: const BoxDecoration(
+                              //         color: Colors.white,
+                              //         borderRadius: BorderRadius.only(
+                              //           topLeft: Radius.circular(25.0),
+                              //           topRight: Radius.circular(25.0),
+                              //         ),
+                              //       ),
+                              //       child: ListView(children: <Widget>[
+                              //         Column(
+                              //           children: <Widget>[
+                              //             Container(
+                              //               alignment: Alignment.topLeft,
+                              //               margin: const EdgeInsets.only(
+                              //                   top: 25, left: 20),
+                              //               child: GestureDetector(
+                              //                 onTap: () {
+                              //                   Navigator.pop(context);
+                              //                 },
+                              //                 child: ClipRRect(
+                              //                   borderRadius:
+                              //                       BorderRadius.circular(20.0),
+                              //                   child: Image.network(
+                              //                       'https://icons.veryicon.com/png/o/miscellaneous/student/false.png',
+                              //                       width: 16.0,
+                              //                       height: 16.0),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //             Container(
+                              //                 margin: const EdgeInsets.only(
+                              //                   top: 25,
+                              //                 ),
+                              //                 alignment: Alignment.topCenter,
+                              //                 child: SizedBox(
+                              //                     width: 140, // <-- Your width
+                              //                     height: 45, // <-- Your height
+                              //                     child: ElevatedButton(
+                              //                       style: ElevatedButton
+                              //                           .styleFrom(
+                              //                         side: const BorderSide(
+                              //                             color: Colors.black),
+                              //                         shape:
+                              //                             RoundedRectangleBorder(
+                              //                                 borderRadius:
+                              //                                     BorderRadius
+                              //                                         .circular(
+                              //                                             5.0)),
+                              //                         backgroundColor: Colors
+                              //                             .white, // Background color
+                              //                       ),
+                              //                       child: const Text(
+                              //                         'Gallery',
+                              //                         style: TextStyle(
+                              //                             fontSize: 15,
+                              //                             fontWeight:
+                              //                                 FontWeight.w700,
+                              //                             color: Colors.black),
+                              //                       ),
+                              //                       onPressed: () {
+                              //                         pickImage();
+                              //                       },
+                              //                     ))),
+                              //             Container(
+                              //                 margin: const EdgeInsets.only(
+                              //                   top: 25,
+                              //                 ),
+                              //                 alignment: Alignment.topCenter,
+                              //                 child: SizedBox(
+                              //                     width: 140, // <-- Your width
+                              //                     height: 45, // <-- Your height
+                              //                     child: ElevatedButton(
+                              //                       style: ElevatedButton
+                              //                           .styleFrom(
+                              //                         side: const BorderSide(
+                              //                             color: Colors.black),
+                              //                         shape:
+                              //                             RoundedRectangleBorder(
+                              //                                 borderRadius:
+                              //                                     BorderRadius
+                              //                                         .circular(
+                              //                                             5.0)),
+                              //                         backgroundColor: Colors
+                              //                             .white, // Background color
+                              //                       ),
+                              //                       child: const Text(
+                              //                         'Camera',
+                              //                         style: TextStyle(
+                              //                             fontSize: 15,
+                              //                             fontWeight:
+                              //                                 FontWeight.w700,
+                              //                             color: Colors.black),
+                              //                       ),
+                              //                       onPressed: () {
+                              //                         pickImageC();
+                              //                       },
+                              //                     ))),
+                              //           ],
+                              //         ),
+                              //       ])),
+                              // );
+                            }),
+                        Container(
+                          margin: const EdgeInsets.only(top: 40, left: 35.0),
+                          child: const Text(
+                            'NAME',
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: "PlayfairDisplay"),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 35.0, right: 35),
+                          child: const TextField(
+                            textAlign: TextAlign.start,
+                          ),
+                        )
+                      ])),
+                );
+              },
             )),
         Container(
           margin: const EdgeInsets.only(top: 40, left: 35.0),

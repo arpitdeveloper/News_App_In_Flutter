@@ -49,8 +49,8 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     Page1(),
     Page2(),
-    // Page3(),
-    const Imagee(),
+    Page3(),
+
     Profile_change()
     // Bargraph()
     // Bias()

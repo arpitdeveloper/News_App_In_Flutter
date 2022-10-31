@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:rk_news/bargraph.dart';
 import 'package:rk_news/components/Bias.dart';
+import 'package:rk_news/components/profile_change.dart';
 
 void main() => runApp(Page3());
 
@@ -89,14 +90,22 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                           ],
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 10, left: 45),
-                          alignment: Alignment.topRight,
-                          child: const Icon(
-                            // <-- Icon
+                          margin: const EdgeInsets.only(top: 10, left: 20),
+                          child: new IconButton(
+                            icon: const Icon(
+                              // <-- Icon
 
-                            Icons.arrow_forward_ios,
-                            color: Color.fromARGB(255, 204, 192, 192),
-                            size: 15.0,
+                              Icons.arrow_forward_ios,
+                              color: Color.fromARGB(255, 204, 192, 192),
+                              size: 15.0,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Profile_change()),
+                              );
+                            },
                           ),
                         ),
                       ],
