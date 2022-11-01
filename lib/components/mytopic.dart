@@ -1,23 +1,37 @@
 // ignore_for_file: unnecessary_new, non_constant_identifier_names, file_names, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:rk_news/components/profile_change.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: Mytopic(),
-  ));
-}
+void main() => runApp(const Mytopic());
 
-// ignore: camel_case_types
-class Mytopic extends StatefulWidget {
+class Mytopic extends StatelessWidget {
   const Mytopic({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _State createState() => _State();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xFFF5F5F5),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFFF5F5F5),
+            elevation: 0, // This removes the shadow from all App Bars.
+          )),
+      debugShowCheckedModeBanner: false,
+      home: const MyNavigationBar(),
+    );
+  }
 }
 
-class _State extends State<Mytopic> {
+class MyNavigationBar extends StatefulWidget {
+  const MyNavigationBar({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _MyNavigationBarState createState() => _MyNavigationBarState();
+}
+
+class _MyNavigationBarState extends State<MyNavigationBar> {
   List<Student> students = [
     Student(name: "COVID-19"),
     Student(name: "MENTAL HEALTH"),
@@ -25,20 +39,13 @@ class _State extends State<Mytopic> {
     Student(name: "ECONOMICS")
   ];
 
-  // bool _isVisible = true;
-
-  // void showToast() {
-  //   setState(() {
-  //     _isVisible = !_isVisible;
-  //   });
-  // }
-  var selectedIndex;
+  List<String> temp = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 160.10, //set your height
+        toolbarHeight: 140.10, //set your height
         flexibleSpace: SafeArea(
           child: Container(
             color: const Color(0xFFF5F5F5), // set your color
@@ -57,7 +64,11 @@ class _State extends State<Mytopic> {
                           size: 24.0,
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Profile_change()),
+                          );
                         },
                       ),
                     ),
@@ -103,83 +114,59 @@ class _State extends State<Mytopic> {
       body: ListView.builder(
           itemCount: students.length,
           itemBuilder: (BuildContext ctx, index) {
-            return SizedBox(
-              height: 150,
-              width: 200,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.only(
-                              left: 30, top: 5, bottom: 10),
-                          child: Text(
-                            students[index].name,
-                            style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                fontStyle: FontStyle.normal),
+            return Column(children: <Widget>[
+              InkWell(
+                  onTap: () {
+                    setState(() {
+                      if (temp.contains(students[index].name)) {
+                        temp.remove(students[index].name);
+                      } else {
+                        temp.add(students[index].name);
+                      }
+                    });
+                  },
+                  child: Container(
+                      margin: const EdgeInsets.only(
+                        left: 20,
+                      ),
+                      child: ListTile(
+                        title: Text(
+                          students[index].name,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.centerRight,
-                          margin: const EdgeInsets.only(
-                            left: 30,
+                        trailing: SizedBox(
+                          height: 30,
+                          width: 50,
+                          child: Center(
+                            child: temp.contains(students[index].name)
+                                ? Image.asset(
+                                    'assets/images/plus.png',
+                                    width: 20,
+                                    height: 20,
+                                  )
+                                : Image.asset(
+                                    'assets/images/right.png',
+                                    width: 20,
+                                    height: 20,
+                                  ),
+                            // child: Text(temp.contains(students[index].name)
+                            //     ? 'remove'
+                            //     : "Add")
                           ),
-                          child: selectedIndex == index
-                              ? Container(
-                                  margin: const EdgeInsets.only(left: 0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedIndex = index;
-                                      });
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/plus.png',
-                                        height: 20.0,
-                                        alignment: Alignment.topRight,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  margin: const EdgeInsets.only(left: 0),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedIndex = index;
-                                      });
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(0.0),
-                                      child: Image.asset(
-                                        'assets/images/right.png',
-                                        height: 20.0,
-                                        alignment: Alignment.topRight,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                         ),
-                      ])
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10, left: 20),
-                    width: 350.0,
-                    height: 1.0,
-                    color: Colors.black,
-                  ),
-                ],
+                      ))),
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 10,
+                ),
+                width: 350.0,
+                height: 1.0,
+                color: const Color.fromARGB(255, 173, 143, 143),
               ),
-            );
+            ]);
           }),
     );
   }

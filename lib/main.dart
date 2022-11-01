@@ -1,18 +1,19 @@
 // ignore_for_file: unnecessary_new, avoid_print, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:rk_news/bargraph.dart';
+// import 'package:rk_news/bargraph.dart';
 import 'package:rk_news/bottom_tab/page1.dart';
 import 'package:rk_news/bottom_tab/page2.dart';
 import 'package:rk_news/bottom_tab/page3.dart';
 // import 'package:rk_news/bottom_tab/page4.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:rk_news/components/Bias.dart';
-import 'package:rk_news/components/bargraph2.dart';
-import 'package:rk_news/components/image.dart';
+// import 'package:rk_news/components/Bias.dart';
+// import 'package:rk_news/components/bargraph2.dart';
+// import 'package:rk_news/components/image.dart';
 import 'package:rk_news/components/mytopic.dart';
-import 'package:rk_news/components/profile_change.dart';
-import 'package:rk_news/view/login_screen.dart';
+import 'package:rk_news/components/topic.dart';
+// import 'package:rk_news/components/profile_change.dart';
+// import 'package:rk_news/view/login_screen.dart';
 // ignore: depend_on_referenced_packages
 
 void main() async {
@@ -51,8 +52,9 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     Page1(),
     Page2(),
-    const Mytopic(), const Demo()
-    // Page3(),
+    // const Mytopic(),
+    const Topic(),
+    Page3()
     // Bargraph()
     // Bias()
   ];

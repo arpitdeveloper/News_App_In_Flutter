@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 // ignore: depend_on_referenced_packages
 import 'package:image_picker/image_picker.dart';
 import 'package:rk_news/bottom_tab/page3.dart';
+import 'package:rk_news/components/mytopic.dart';
 
 void main() => runApp(Profile_change());
 
@@ -284,113 +285,6 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                             ),
                             onTap: () {
                               pickImage();
-                              // showModalBottomSheet(
-                              //   context: context,
-                              //   isScrollControlled: true,
-                              //   backgroundColor: Colors.transparent,
-                              //   builder: (context) => Container(
-                              //       height: MediaQuery.of(context).size.height *
-                              //           0.35,
-                              //       decoration: const BoxDecoration(
-                              //         color: Colors.white,
-                              //         borderRadius: BorderRadius.only(
-                              //           topLeft: Radius.circular(25.0),
-                              //           topRight: Radius.circular(25.0),
-                              //         ),
-                              //       ),
-                              //       child: ListView(children: <Widget>[
-                              //         Column(
-                              //           children: <Widget>[
-                              //             Container(
-                              //               alignment: Alignment.topLeft,
-                              //               margin: const EdgeInsets.only(
-                              //                   top: 25, left: 20),
-                              //               child: GestureDetector(
-                              //                 onTap: () {
-                              //                   Navigator.pop(context);
-                              //                 },
-                              //                 child: ClipRRect(
-                              //                   borderRadius:
-                              //                       BorderRadius.circular(20.0),
-                              //                   child: Image.network(
-                              //                       'https://icons.veryicon.com/png/o/miscellaneous/student/false.png',
-                              //                       width: 16.0,
-                              //                       height: 16.0),
-                              //                 ),
-                              //               ),
-                              //             ),
-                              //             Container(
-                              //                 margin: const EdgeInsets.only(
-                              //                   top: 25,
-                              //                 ),
-                              //                 alignment: Alignment.topCenter,
-                              //                 child: SizedBox(
-                              //                     width: 140, // <-- Your width
-                              //                     height: 45, // <-- Your height
-                              //                     child: ElevatedButton(
-                              //                       style: ElevatedButton
-                              //                           .styleFrom(
-                              //                         side: const BorderSide(
-                              //                             color: Colors.black),
-                              //                         shape:
-                              //                             RoundedRectangleBorder(
-                              //                                 borderRadius:
-                              //                                     BorderRadius
-                              //                                         .circular(
-                              //                                             5.0)),
-                              //                         backgroundColor: Colors
-                              //                             .white, // Background color
-                              //                       ),
-                              //                       child: const Text(
-                              //                         'Gallery',
-                              //                         style: TextStyle(
-                              //                             fontSize: 15,
-                              //                             fontWeight:
-                              //                                 FontWeight.w700,
-                              //                             color: Colors.black),
-                              //                       ),
-                              //                       onPressed: () {
-                              //                         pickImage();
-                              //                       },
-                              //                     ))),
-                              //             Container(
-                              //                 margin: const EdgeInsets.only(
-                              //                   top: 25,
-                              //                 ),
-                              //                 alignment: Alignment.topCenter,
-                              //                 child: SizedBox(
-                              //                     width: 140, // <-- Your width
-                              //                     height: 45, // <-- Your height
-                              //                     child: ElevatedButton(
-                              //                       style: ElevatedButton
-                              //                           .styleFrom(
-                              //                         side: const BorderSide(
-                              //                             color: Colors.black),
-                              //                         shape:
-                              //                             RoundedRectangleBorder(
-                              //                                 borderRadius:
-                              //                                     BorderRadius
-                              //                                         .circular(
-                              //                                             5.0)),
-                              //                         backgroundColor: Colors
-                              //                             .white, // Background color
-                              //                       ),
-                              //                       child: const Text(
-                              //                         'Camera',
-                              //                         style: TextStyle(
-                              //                             fontSize: 15,
-                              //                             fontWeight:
-                              //                                 FontWeight.w700,
-                              //                             color: Colors.black),
-                              //                       ),
-                              //                       onPressed: () {
-                              //                         pickImageC();
-                              //                       },
-                              //                     ))),
-                              //           ],
-                              //         ),
-                              //       ])),
-                              // );
                             }),
                         Container(
                           margin: const EdgeInsets.only(top: 40, left: 35.0),
@@ -539,7 +433,12 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
                       color: Colors.black),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Mytopic()),
+                );
+              },
             )),
         Container(
             height: 40,
