@@ -8,7 +8,9 @@ import 'package:rk_news/bottom_tab/page3.dart';
 // import 'package:rk_news/bottom_tab/page4.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rk_news/components/Bias.dart';
+import 'package:rk_news/components/bargraph2.dart';
 import 'package:rk_news/components/image.dart';
+import 'package:rk_news/components/mytopic.dart';
 import 'package:rk_news/components/profile_change.dart';
 import 'package:rk_news/view/login_screen.dart';
 // ignore: depend_on_referenced_packages
@@ -49,9 +51,8 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
   static final List<Widget> _widgetOptions = <Widget>[
     Page1(),
     Page2(),
-    Page3(),
-
-    Profile_change()
+    const Mytopic(), const Demo()
+    // Page3(),
     // Bargraph()
     // Bias()
   ];
@@ -87,26 +88,26 @@ class _MyNavigationBarState extends State<MyNavigationBar> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'Top',
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: 'Discover',
-                backgroundColor: Colors.red),
+                backgroundColor: Colors.black),
             BottomNavigationBarItem(
               icon: Icon(Icons.star_rounded),
               label: 'MYtopics',
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.black,
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: 'Profile',
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.black,
             ),
           ],
           type: BottomNavigationBarType.shifting,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
+          selectedItemColor: const Color(0xFFEA7432),
           iconSize: 40,
           onTap: _onItemTapped,
           elevation: 5),
