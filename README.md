@@ -1,4 +1,4 @@
-# rk_news
+# Flutter_news
 
 A new Flutter project.
 
